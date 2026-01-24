@@ -2,8 +2,8 @@ import random
 
 import discord
 
-from constants.config import DEFAULT_EMBED_COLOR
-from constants.ocs import CHARACTERS
+from config.ocs import CHARACTERS
+from config.setup import DEFAULT_EMBED_COLOR
 from utils.logs.pretty_log import pretty_log
 
 
