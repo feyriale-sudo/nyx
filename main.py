@@ -6,6 +6,7 @@ import warnings
 import discord
 from discord.ext import commands
 
+from utils.cache.central_cache_loader import load_all_cache
 from utils.db.get_pg_pool import *
 from utils.logs.pretty_log import pretty_log, set_bot
 
@@ -55,6 +56,9 @@ async def on_ready():
     await bot.tree.sync()
     pretty_log("info", "Slash commands synced.")
 
+    # ❀ Load all caches ❀
+    await load_all_cache(bot)
+
 
 # ╭───────────────────────────────╮
 #   ⭐ Setup Hook
@@ -74,10 +78,10 @@ async def setup_hook():
         relative_path = os.path.relpath(cog_path, "cogs")
         module_name = relative_path[:-3].replace(os.sep, ".")
         cog_name = f"cogs.{module_name}"
-        pretty_log("debug", f"Attempting to load cog: {cog_name}")
+        #pretty_log("debug", f"Attempting to load cog: {cog_name}")
         try:
             await bot.load_extension(cog_name)
-            pretty_log("info", f"Loaded cog: {cog_name}")
+            #pretty_log("info", f"Loaded cog: {cog_name}")
         except Exception as e:
             pretty_log("error", f"Failed to load {cog_name}: {e}", include_trace=True)
 

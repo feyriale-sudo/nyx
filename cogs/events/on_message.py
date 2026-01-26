@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 
 from utils.listener_func.gacha import gacha_pull
+from utils.logs.pretty_log import pretty_log
 
 
 class MessageCreateListener(commands.Cog):
@@ -17,8 +18,12 @@ class MessageCreateListener(commands.Cog):
 
         # Simple command check
         if message.content.lower() == ".gacha":
+            pretty_log(
+                tag="info",
+                message=f"Received gacha command from user {message.author} ({message.author.id})",
+            )
             # Call your gacha function here
-            await gacha_pull(message)
+            await gacha_pull(self.bot, message)
 
 
 async def setup(bot: commands.Bot):

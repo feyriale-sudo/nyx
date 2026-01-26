@@ -1,0 +1,11 @@
+import discord
+from discord import app_commands
+from discord.ext import commands
+
+
+from utils.logs.pretty_log import pretty_log
+from utils.visuals.pretty_defer import pretty_defer
+from utils.logs.send_log_embed import send_log_embed
+
+from utils.logs.debug_log import debug_log, enable_debug
+enable_debug(f"{__name__}.detect_pokemeow_battle")
