@@ -15,7 +15,7 @@ from utils.db.user_oc_inv import increment_oc_owned, upsert_user_oc_inv
 from utils.logs.debug_log import debug_log, enable_debug
 from utils.logs.pretty_log import pretty_log
 
-enable_debug(f"{__name__}.gacha_pull")
+#enable_debug(f"{__name__}.gacha_pull")
 RARITY_CACHE_MAP = {
     "Common": common_ocs_cache,
     "Rare": rare_ocs_cache,

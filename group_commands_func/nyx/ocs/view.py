@@ -8,8 +8,8 @@ from utils.logs.debug_log import debug_log, enable_debug
 from utils.logs.pretty_log import pretty_log
 from utils.visuals.pretty_defer import pretty_defer
 
-enable_debug(f"{__name__}.view_ocs_func")
-enable_debug(f"{__name__}.get_embed")
+#enable_debug(f"{__name__}.view_ocs_func")
+#enable_debug(f"{__name__}.get_embed")
 
 
 class OC_Paginator(View):

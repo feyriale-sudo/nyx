@@ -18,7 +18,7 @@ def set_bot(bot: commands.Bot):
 
 # -------------------- 🌠 Critical Logs Channel --------------------
 CRITICAL_LOG_CHANNEL_ID = (
-    1422414881944240148  # TODO: replace with your bot error log channel
+    1444997181244444672  # TODO: replace with your bot error log channel
 )
 
 # -------------------- 🌌 Logging Tags --------------------

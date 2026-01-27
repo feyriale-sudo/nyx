@@ -3,11 +3,14 @@ from discord import app_commands
 from discord.ext import commands
 
 from config.ocs import OCS_RARITY_MAP
-from utils.cache.cache_list import ocs_cache
 from utils.db.ocs_db import edit_oc
+from utils.logs.debug_log import debug_log, enable_debug
 from utils.logs.pretty_log import pretty_log
 from utils.logs.send_log_embed import send_log_embed
 from utils.visuals.pretty_defer import pretty_defer
+
+#enable_debug(f"{__name__}.edit_oc_func")
+
 
 async def edit_oc_func(
     bot: commands.Bot,
@@ -18,20 +21,29 @@ async def edit_oc_func(
     new_character_info: str | None = None,
 ):
     """Edits an existing OC entry in the database."""
+    # Always import the cache inside the function to avoid stale cache issues
+    from utils.cache.cache_list import ocs_cache
+
+    debug_log(f"Current OC cache contents: {ocs_cache}")
     # Defer the interaction to allow for processing time
     loader = await pretty_defer(
         interaction=interaction, content="Editing OC...", ephemeral=False
     )
-    # Check if OC exists in cache
-    if name not in ocs_cache:
+
+    # Find OC in cache (ocs_cache is a list of dicts)
+    oc_entry = next((oc for oc in ocs_cache if name in oc), None)
+    if not oc_entry:
+        debug_log(f"OC '{name}' does not exist in cache.")
         await loader.error(content=f"OC '{name}' does not exist!")
         return
+
     # Check if there is anything to update
     if not any([new_rarity, new_image_link, new_character_info]):
         await loader.error(content="No new information provided to update!")
         return
+
     # Fetch old info for embed
-    old_oc_info = ocs_cache.get(name, {})
+    old_oc_info = oc_entry.get(name, {})
     old_rarity = old_oc_info.get("rarity", "Unknown")
     old_rarity_emoji = OCS_RARITY_MAP.get(old_rarity, {}).get("emoji", "")
     old_image_link = old_oc_info.get("image_link", "")

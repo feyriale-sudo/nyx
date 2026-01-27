@@ -45,38 +45,49 @@ async def load_ocs_cache(bot: discord.Client):
                 }
             }
 
-        cache_list.ocs_cache = [wrap_oc_entry(oc) for oc in await fetch_all_ocs(bot)]
+        # Mutate the lists in place so all references see the update
+        cache_list.ocs_cache.clear()
+        cache_list.ocs_cache.extend(
+            [wrap_oc_entry(oc) for oc in await fetch_all_ocs(bot)]
+        )
         pretty_log(
             tag="info", message=f"Loaded {len(cache_list.ocs_cache)} OCs into cache."
         )
 
-        cache_list.common_ocs_cache = [
-            wrap_oc_entry(oc) for oc in await fetch_all_ocs_by_rarity(bot, "Common")
-        ]
+        cache_list.common_ocs_cache.clear()
+        cache_list.common_ocs_cache.extend(
+            [wrap_oc_entry(oc) for oc in await fetch_all_ocs_by_rarity(bot, "Common")]
+        )
         pretty_log(
             tag="info",
             message=f"Loaded {len(cache_list.common_ocs_cache)} Common OCs into cache.",
         )
 
-        cache_list.rare_ocs_cache = [
-            wrap_oc_entry(oc) for oc in await fetch_all_ocs_by_rarity(bot, "Rare")
-        ]
+        cache_list.rare_ocs_cache.clear()
+        cache_list.rare_ocs_cache.extend(
+            [wrap_oc_entry(oc) for oc in await fetch_all_ocs_by_rarity(bot, "Rare")]
+        )
         pretty_log(
             tag="info",
             message=f"Loaded {len(cache_list.rare_ocs_cache)} Rare OCs into cache.",
         )
 
-        cache_list.epic_ocs_cache = [
-            wrap_oc_entry(oc) for oc in await fetch_all_ocs_by_rarity(bot, "Epic")
-        ]
+        cache_list.epic_ocs_cache.clear()
+        cache_list.epic_ocs_cache.extend(
+            [wrap_oc_entry(oc) for oc in await fetch_all_ocs_by_rarity(bot, "Epic")]
+        )
         pretty_log(
             tag="info",
             message=f"Loaded {len(cache_list.epic_ocs_cache)} Epic OCs into cache.",
         )
 
-        cache_list.legendary_ocs_cache = [
-            wrap_oc_entry(oc) for oc in await fetch_all_ocs_by_rarity(bot, "Legendary")
-        ]
+        cache_list.legendary_ocs_cache.clear()
+        cache_list.legendary_ocs_cache.extend(
+            [
+                wrap_oc_entry(oc)
+                for oc in await fetch_all_ocs_by_rarity(bot, "Legendary")
+            ]
+        )
         pretty_log(
             tag="info",
             message=f"Loaded {len(cache_list.legendary_ocs_cache)} Legendary OCs into cache.",
